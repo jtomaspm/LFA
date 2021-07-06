@@ -1,0 +1,33 @@
+module(name, stat) ::= <<
+import java.util.*;
+public class <name> {
+	private static HashMap\<String,Object> variables = new HashMap\<String,Object>();
+	public static void main(String [] args){
+		<stats(stat)>
+	}
+}
+>>
+
+stats(stat) ::= <<
+<if(stat)><stat; sepator="\n"><endif>
+>>
+
+print(stat, value) ::= <<
+<stats(stat)>
+System.out.println(<value>);
+>>
+
+decl(type,var,value) ::= <<
+<type> <var><if(value)> = <value>;
+variables.put(<var>,<value>);
+<endif>
+
+>>
+declArray(var,value) ::= <<
+String [] <var><if(value)> = new String[]{<value>};
+variables.put(<var>, new String[]{<value>});
+<endif>
+
+>>
+
+commonText(text) ::= "<text>"
